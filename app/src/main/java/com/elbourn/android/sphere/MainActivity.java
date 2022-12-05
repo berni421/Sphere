@@ -1,16 +1,6 @@
 package com.elbourn.android.sphere;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-
-import com.elbourn.android.sphere.processing.Sketch;
-
-import androidx.appcompat.app.AppCompatActivity;
-import processing.android.CompatUtils;
-import processing.android.PFragment;
-import processing.core.PApplet;
 
 public class MainActivity extends OptionsMenu {
 //    private PApplet sketch;

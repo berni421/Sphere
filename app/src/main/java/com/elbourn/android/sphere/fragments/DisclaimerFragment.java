@@ -13,8 +13,6 @@ import com.elbourn.android.sphere.BuildConfig;
 import com.elbourn.android.sphere.R;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import static android.content.Context.MODE_PRIVATE;

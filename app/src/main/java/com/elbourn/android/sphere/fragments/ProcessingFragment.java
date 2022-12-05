@@ -1,7 +1,5 @@
 package com.elbourn.android.sphere.fragments;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +13,6 @@ import com.elbourn.android.sphere.processing.Sketch;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import processing.android.CompatUtils;
 import processing.android.PFragment;
 import processing.core.PApplet;
 

@@ -1,10 +1,8 @@
 package com.elbourn.android.sphere.processing;
 
 import android.util.Log;
-import android.webkit.WebHistoryItem;
 
 import processing.core.PApplet;
-import processing.core.PConstants;
 
 class HSlider {
     String TAG = getClass().getSimpleName();
@@ -33,15 +31,17 @@ class HSlider {
     }
 
     void update() {
-        if (!overEvent()) return;
         if (!newTouch) return;
+        newTouch = false;
+        if (pApplet.touches.length != 1) return;
+        if (!overEvent()) return;
         newspos = pApplet.constrain(pApplet.mouseX - sheight / 2f, sposMin, sposMax);
         if (pApplet.abs(newspos - spos) > 1) {
             spos = spos + (newspos - spos) / loose;
         }
     }
 
-    boolean overEvent() {
+    public boolean overEvent() {
         return pApplet.mouseX > xpos &&
                 pApplet.mouseX < xpos + swidth &&
                 pApplet.mouseY > ypos &&
@@ -49,23 +49,28 @@ class HSlider {
     }
 
     void display() {
+        pApplet.push();
+        pApplet.translate(0,0,0);
         pApplet.fill(50);
         pApplet.rect(xpos, ypos, swidth, sheight);
         pApplet.fill(172);
         pApplet.rect(spos, ypos, sheight, sheight);
-        pApplet.textSize(pApplet.width * 0.05f);
-        pApplet.text("Use slider at top to adjust spin axis",
-                pApplet.width * 0.5f,
-                pApplet.height - sheight * 0.5f);
+        float textSize = pApplet.width * 0.05f;
+        pApplet.textSize(textSize);
+        String text = "Use slider at top to adjust spin axis";
         pApplet.textAlign(pApplet.CENTER);
+        pApplet.text(text,
+                pApplet.width * 0.5f ,
+                pApplet.height - sheight * 0.5f);
+        pApplet.pop();
     }
 
     void touched() {
-        Log.i(TAG, "start touchEnded");
+        Log.i(TAG, "start touched");
         newTouch = true;
         Log.i(TAG, "mouseX: " + pApplet.mouseX);
         Log.i(TAG, "mouseY: " + pApplet.mouseY);
-        Log.i(TAG, "end touchEnded");
+        Log.i(TAG, "end touched");
     }
 
     float getValue() {
