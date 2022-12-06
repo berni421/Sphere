@@ -18,16 +18,24 @@ public class Sketch extends PApplet {
         // Sphere(PApplet pApplet, float radius)
         shape = new Shape(this, min(width, height) * 0.4f);
         // HSlider(float xpos, float ypos, int swidth, int sheight, int loose)
-        slider = new HSlider(this, 0, (int) (height * 0.01), width, (int) (height * 0.1), 10);
+        int sHeight = (int) (height * 0.1);
+        slider = new HSlider(this, 0, sHeight/2, width, sHeight, 10);
         Log.i(TAG, "end setup");
         frameRate(10);
     }
 
     public void draw() {
         background(android.R.color.black);
+        // Slider
         if (slider == null) return;
         slider.update();
         slider.display();
+        float textSize = width * 0.05f;
+        textSize(textSize);
+        String text = "Use slider to adjust spin axis";
+        textAlign(CENTER);
+        text(text, width * 0.5f, slider.sheight + textSize);
+        // shape
         if (shape == null) return;
         shape.update();
         shape.display(slider.getValue());

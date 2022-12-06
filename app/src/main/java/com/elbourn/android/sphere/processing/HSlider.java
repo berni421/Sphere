@@ -32,12 +32,13 @@ class HSlider {
 
     void update() {
         if (!newTouch) return;
-        newTouch = false;
-        if (pApplet.touches.length != 1) return;
+//        if (pApplet.touches.length != 1) return;
         if (!overEvent()) return;
         newspos = pApplet.constrain(pApplet.mouseX - sheight / 2f, sposMin, sposMax);
         if (pApplet.abs(newspos - spos) > 1) {
             spos = spos + (newspos - spos) / loose;
+        } else {
+            newTouch = false;
         }
     }
 
@@ -55,13 +56,6 @@ class HSlider {
         pApplet.rect(xpos, ypos, swidth, sheight);
         pApplet.fill(172);
         pApplet.rect(spos, ypos, sheight, sheight);
-        float textSize = pApplet.width * 0.05f;
-        pApplet.textSize(textSize);
-        String text = "Use slider at top to adjust spin axis";
-        pApplet.textAlign(pApplet.CENTER);
-        pApplet.text(text,
-                pApplet.width * 0.5f ,
-                pApplet.height - sheight * 0.5f);
         pApplet.pop();
     }
 
