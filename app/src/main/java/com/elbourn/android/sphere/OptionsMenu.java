@@ -2,6 +2,7 @@ package com.elbourn.android.sphere;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,11 +12,14 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.elbourn.android.sphere.fragments.IntroFragment;
+import com.elbourn.android.sphere.processing.Sketch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import processing.core.PConstants;
 
 public class OptionsMenu extends AppCompatActivity {
 
+    static String APP = BuildConfig.APPLICATION_ID;
     private String TAG = "OptionsMenu";
 
     @Override
@@ -37,6 +41,12 @@ public class OptionsMenu extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.sphere:
+                setShapeType(PConstants.SPHERE);
+                return true;
+            case R.id.cube:
+                setShapeType(PConstants.BOX);
+                return true;
             case R.id.menuIntroOff:
                 setIntroductionOff(item);
                 return true;
@@ -46,6 +56,12 @@ public class OptionsMenu extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    void setShapeType(int type) {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(APP, MODE_PRIVATE);
+        sharedPreferences.edit().putInt("type", type).apply();
     }
 
     void setIntroductionOff(MenuItem item) {

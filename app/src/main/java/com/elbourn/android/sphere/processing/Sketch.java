@@ -1,10 +1,18 @@
 package com.elbourn.android.sphere.processing;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
+
+import com.elbourn.android.sphere.BuildConfig;
 
 import processing.core.PApplet;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class Sketch extends PApplet {
+
+    static String APP = BuildConfig.APPLICATION_ID;
     String TAG = getClass().getSimpleName();
     Shape shape = null;
     HSlider slider = null;
@@ -15,8 +23,8 @@ public class Sketch extends PApplet {
 
     public void setup() {
         Log.i(TAG, "start setup");
-        // Sphere(PApplet pApplet, float radius)
-        shape = new Shape(this, min(width, height) * 0.4f);
+        // Shape(PApplet pApplet, int type, float size, PImage img) {
+        shape = new Shape(this, SPHERE,min(width, height) * 0.4f, loadImage("rusty.jpg"));
         // HSlider(float xpos, float ypos, int swidth, int sheight, int loose)
         int sHeight = (int) (height * 0.1);
         slider = new HSlider(this, 0, sHeight/2, width, sHeight, 10);
@@ -48,5 +56,4 @@ public class Sketch extends PApplet {
     public void touchMoved() {
         shape.touched();
     }
-
 }
