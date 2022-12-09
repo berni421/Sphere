@@ -1,18 +1,15 @@
 package com.elbourn.android.sphere.processing;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.elbourn.android.sphere.BuildConfig;
+import com.elbourn.android.sphere.Globals;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PShape;
 import processing.core.PVector;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 public class Shape {
@@ -23,6 +20,7 @@ public class Shape {
     PShape shape = null;
     PApplet pApplet = null;
     PImage img;
+    public static final int PYRAMID = 999;
 
     float size;
     int x=0, y=0, z=0;
@@ -36,19 +34,14 @@ public class Shape {
         setSize(size);
     }
 
-    void setType(int type) {
-        Context context = pApplet.getActivity().getApplicationContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(APP, MODE_PRIVATE);
-        sharedPreferences.edit().putInt("type", type).apply();
-
+    public void setType(int type) {
+        Globals.getInstance().setCurrent(type);
     }
 
     void checkType( ) {
-        Context context = pApplet.getActivity().getApplicationContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(APP, MODE_PRIVATE);
-        int newType = sharedPreferences.getInt("type", PConstants.SPHERE);
+
+        int newType = (int) Globals.getInstance().getCurrent();
         if (newType != type) {
-                Log.i(TAG, "newType: " + newType);
                 type = newType;
                 setSize(size);
         }
@@ -57,8 +50,14 @@ public class Shape {
     void setSize(float size) {
         this.size = size;
         pApplet.noStroke();
-        shape = pApplet.createShape(type, size);
-        shape.setTexture(img);
+        switch (type) {
+            case PYRAMID:
+                setPyramid(size);
+                break;
+            default:
+                shape = pApplet.createShape(type, size);
+                shape.setTexture(img);
+        }
     }
 
     void display(float v) {
@@ -68,7 +67,7 @@ public class Shape {
         int frameCount = pApplet.frameCount;
         pApplet.rotateX(frameCount * 0.01f);
         pApplet.rotateY(frameCount * 0.01f);
-        pApplet.rotateZ( 2*v/pApplet.width);
+        pApplet.rotateZ(v);
         pApplet.shape(shape);
         pApplet.pop();
     }
@@ -112,5 +111,36 @@ public class Shape {
             Log.i(TAG, "radius: " + size);
             setSize(size);
         }
+    }
+
+    void setPyramid(float size) {
+        shape = pApplet.createShape();
+        pApplet.textureWrap(PConstants.REPEAT);
+        shape.setTexture(img);
+        shape.setTextureMode(PConstants.NORMAL);
+        float u = 1, v = 1;
+
+        shape.beginShape(PConstants.TRIANGLES);
+
+//        vertex(x, y, z, u, v)
+//        u(float)horizontal coordinate for the texture mapping
+//        v(float, float[])vertical coordinate for the texture mapping
+        shape.vertex(-size, -size, -size, -u, -v);
+        shape.vertex(size, -size, -size, u, -v );
+        shape.vertex(0, 0, size, 0, 0 );
+
+        shape.vertex(size, -size, -size, u, -v);
+        shape.vertex(size, size, -size, u, v);
+        shape.vertex(0, 0, size, 0, 0);
+
+        shape.vertex(size, size, -size, u, v);
+        shape.vertex(-size, size, -size, -u, v);
+        shape.vertex(0, 0, size, 0,0);
+
+        shape.vertex(-size, size, -size, -u, v);
+        shape.vertex(-size, -size, -size, -u, -v);
+        shape.vertex(0, 0, size, 0, 0);
+
+        shape.endShape();
     }
 }

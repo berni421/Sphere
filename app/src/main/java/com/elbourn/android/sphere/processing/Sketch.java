@@ -26,7 +26,7 @@ public class Sketch extends PApplet {
         // Shape(PApplet pApplet, int type, float size, PImage img) {
         shape = new Shape(this, SPHERE,min(width, height) * 0.4f, loadImage("rusty.jpg"));
         // HSlider(float xpos, float ypos, int swidth, int sheight, int loose)
-        int sHeight = (int) (height * 0.1);
+        int sHeight = (int) (height * 0.05);
         slider = new HSlider(this, 0, sHeight/2, width, sHeight, 10);
         Log.i(TAG, "end setup");
         frameRate(10);
@@ -43,10 +43,16 @@ public class Sketch extends PApplet {
         String text = "Use slider to adjust spin axis";
         textAlign(CENTER);
         text(text, width * 0.5f, slider.sheight + textSize);
+        // Options
+        text = "Use menu (three dots top right)\nto select other shapes";
+        text(text, width * 0.5f, height - 2 * textSize);
         // shape
         if (shape == null) return;
         shape.update();
-        shape.display(slider.getValue());
+//        Log.i(TAG, "slider.getValue(): " + slider.getValue());
+        float rotateZ = TWO_PI * (slider.getValue() / slider.swidth);
+//        Log.i(TAG, "RotateZ: " + rotateZ);
+        shape.display(rotateZ);
     }
 
     public void touchStarted() {

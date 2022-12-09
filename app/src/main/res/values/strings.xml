@@ -1,12 +1,21 @@
 <resources>
     <string name="app_name">Sphere</string>
-    <string name="disclaimer_text"><center>Terms of Use</center>\n\n
-        Please ensure that before using this application that you expressly understand and agree that your use of this application is at your sole risk and that the application is provided “as is” and “as available” without warranty of any kind, to the maximum extent permitted by applicable law.\n\n
-        Once the application is available to you through your google account, you should check the application as soon as reasonably possible to ensure that it functions and performs as stated, and notify us or Provider as soon as reasonably possible if you find any errors or defect.\n\n
+    <string name="disclaimer_text"><center>Terms of Use</center>\n\nPlease ensure that before using
+        this application that you expressly understand and agree that
+        your use of this application is at your sole risk and that the application is provided
+        “as is” and “as available” without warranty of any kind, to the maximum extent permitted by
+        applicable law.\n\nOnce the application is available to you through your google account,
+        you should check the application as soon as reasonably possible to ensure that it functions
+        and performs as stated, and notify us or Provider as soon as reasonably possible if you
+        find any errors or defect.
     </string>
     <string name="disclaimer_accept">I accept these terms.</string>
     <string name="dont_show_next_time">Do not show next time?</string>
-    <string name="intro_welcome">Welcome\n\nA demonstration of 3D object motion and textures.</string>
-    <string name="intro_welcome2">The application presents a spinning globe which has been textured by our favorite image. Use the slider to adjust the spin axis. Graphics library proviced by <a href="https://android.processing.org/">https://android.processing.org/</a></string>
-    <string name="into_donate_text">Please make a financial gift of your choice to support my software projects. See menu options top right - help feed the cat.</string>
+    <string name="intro_welcome">Welcome \n\nA demonstration of 3D object motion and textures.</string>
+    <string name="intro_welcome2">The application presents a spinning globe which has been textured
+        by the cat. Use the slider to adjust the spin axis. Menu (three dots top right) to
+        select other shapes. One finger touch and drag the object to a new place. Pinch two fingers
+        to resize the object as needed.\n\nGraphics library credit: <a href="https://android.processing.org/">https://android.processing.org/</a></string>
+    <string name="into_donate_text">Please make a financial gift of your choice to support my software projects.
+        See menu options top right - help feed the cat.</string>
 </resources>
