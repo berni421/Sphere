@@ -1,5 +1,8 @@
 package com.elbourn.android.sphere.fragments;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,9 +11,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.elbourn.android.sphere.BuildConfig;
+import com.elbourn.android.sphere.Globals;
 import com.elbourn.android.sphere.R;
 import com.elbourn.android.sphere.processing.Sketch;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import processing.android.PFragment;
@@ -21,8 +30,9 @@ public class ProcessingFragment extends Fragment {
     static String APP = BuildConfig.APPLICATION_ID;
     static String TAG = Fragment.class.getSimpleName();
 
-    private PApplet sketch;
+    PApplet sketch = null;
     View view = null;
+    PFragment processingFragment = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,19 +43,11 @@ public class ProcessingFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Log.i(TAG, "start onResume");
-        if (view != null) startAndSetup(view);
-        Log.i(TAG, "end onResume");
-    }
-
-    void startAndSetup(View view) {
-        FragmentActivity fragmentActivity = getActivity();
-        FrameLayout frame = view.findViewById(R.id.frameLayout01);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         sketch = new Sketch();
-        PFragment fragment = new PFragment(sketch);
-        fragment.setView(frame, fragmentActivity);
+        Globals.getInstance().setSketch(sketch);
+        processingFragment = new PFragment(sketch);
+        processingFragment.setView(view.findViewById(R.id.frameLayout01), getActivity());
     }
-
 }

@@ -35,12 +35,12 @@ public class Shape {
     }
 
     public void setType(int type) {
-        Globals.getInstance().setCurrent(type);
+        Globals.getInstance().setType(type);
     }
 
     void checkType( ) {
 
-        int newType = (int) Globals.getInstance().getCurrent();
+        int newType = (int) Globals.getInstance().getType();
         if (newType != type) {
                 type = newType;
                 setSize(size);

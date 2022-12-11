@@ -41,13 +41,13 @@ public class OptionsMenu extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.pyramid:
-                Globals.getInstance().setCurrent(Shape.PYRAMID);
+                Globals.getInstance().setType(Shape.PYRAMID);
                 return true;
             case R.id.sphere:
-                Globals.getInstance().setCurrent(PConstants.SPHERE);
+                Globals.getInstance().setType(PConstants.SPHERE);
                 return true;
             case R.id.cube:
-                Globals.getInstance().setCurrent(PConstants.BOX);
+                Globals.getInstance().setType(PConstants.BOX);
                 return true;
             case R.id.menuIntroOff:
                 setIntroductionOff(item);
